@@ -1,18 +1,16 @@
 {
   "manifest_version": 2,
   "name": "Lo Monté",
-  "version": "4.1",
-  "description": "Extención para adicionar combos al carrito",
-  "author": "lcreyes",
-  "background": {
-    "page": "src/html/background.html"
-  },
+  "version": "4.0",
+
+  "description": "Extención para adicionar como al carrito",
+
   "content_scripts": [
     {
       "matches": ["*://*.tuenvio.cu/*"],
-      "js": ["src/js/content_script.js"]
+      "js": ["main.js"]
     }
   ],
-  "permissions": ["*://tuenvio.cu/html/*"],
-  "web_accessible_resources": ["src/js/*"]
+
+  "permissions": ["*://tuenvio.cu/html/*"]
 }
