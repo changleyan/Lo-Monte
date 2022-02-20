@@ -1,4 +1,4 @@
-import { continuar, d, setContinuar } from "./constants.js";
+import { continuar, d, setContinuar, PathNameUrl } from "./constants.js";
 
 const reloadPage = () => {
   if (continuar) {
@@ -26,19 +26,24 @@ const reloadPage = () => {
   }
 };
 
-const doFetch = async (req) => {
-  const response = await req.catch((error) => {
-    console.error(error);
-  });
-  const json = await response;
-  if (response.status === 200) {
-    if (response.redirected) {
-      console.log("Producto agotado");
-    } else {
-      console.log("Peticion correcta");
-    }
+const doFetch = async (url, params) => {
+  const response = await fetch(url, params);
+  if (!response.ok) {
+    const message = `An error has occured: ${response.status}`;
+    throw new Error(message);
   }
-  return json;
+  return response;
 };
 
-export { reloadPage, doFetch };
+const GenerarUrlPago = () => {
+  let end = PathNameUrl.lastIndexOf("/");
+  let start = 1;
+  let province = PathNameUrl.slice(start, end);
+  return `https://www.tuenvio.cu/${province}/CheckOut.aspx`;
+};
+
+const openInNewTab = (url) => {
+  window.open(url, "_blank").focus();
+};
+
+export { reloadPage, doFetch, GenerarUrlPago, openInNewTab };

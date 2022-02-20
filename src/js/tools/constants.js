@@ -1,11 +1,12 @@
 const d = document;
 const w = window;
 const URLactual = w.location.href;
+const PathNameUrl = w.location.pathname;
 const timerReload = 2000;
 const detenerCiclo = 50000;
 const shopMSAuth =
-  "0102D3175EF27DF1D908FED37F225486F1D908000A4C006500790061006E004300680061006E00670000012F00FF";
-const asp = "f5db2vpelf5krn0hxtjazw4m";
+  "010235A87EE6F0F4D908FE35104348F9F4D908000B44006100790072006F006E004300680061006E00670000012F00FF";
+const asp = "5axplstguehr1texyhzaqiij";
 
 let continuar = false;
 
@@ -14,9 +15,9 @@ const setContinuar = (param) => {
   console.log({ continuar });
 };
 
-const FetchReq = () => {
-  const cookie = `${document.cookie}"; ASP.NET_SessionId=${asp}; ShopMSAuth=${shopMSAuth}`;
+const cookie = `${document.cookie}"; ASP.NET_SessionId=${asp}; ShopMSAuth=${shopMSAuth}`;
 
+const GetParamsMount = () => {
   const baseHeaders = {
     accept: "*/*",
     "accept-language": "es-US,es-419;q=0.9,es;q=0.8,en;q=0.7",
@@ -62,7 +63,7 @@ const FetchReq = () => {
   };
   // console.log(params);
 
-  return fetch(URLactual, params);
+  return params;
   // return `fetch(${URLactual},${params})`;
 };
 
@@ -73,6 +74,7 @@ export {
   timerReload,
   detenerCiclo,
   continuar,
+  PathNameUrl,
   setContinuar,
-  FetchReq,
+  GetParamsMount,
 };
