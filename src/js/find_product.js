@@ -9,6 +9,7 @@ const adicionarCarrito = async () => {
   }
   try {
     const existBtnAdd = await d.getElementsByClassName("input-append");
+    console.log(existBtnAdd, "btn");
     if (existBtnAdd !== null && existBtnAdd.length > 0) {
       peticiones();
     }

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Lo Monté",
-  "version": "4.1",
+  "version": "4.2",
   "description": "Extención para adicionar combos al carrito",
   "author": "lcreyes",
   "background": {

@@ -1,4 +1,10 @@
-import { continuar, d, setContinuar, PathNameUrl } from "./constants.js";
+import {
+  continuar,
+  d,
+  setContinuar,
+  PathNameUrl,
+  cantidadPeticionesPorCiclo,
+} from "./constants.js";
 
 const reloadPage = () => {
   if (continuar) {
@@ -42,8 +48,27 @@ const GenerarUrlPago = () => {
   return `https://www.tuenvio.cu/${province}/CheckOut.aspx`;
 };
 
+const multiplesPeticiones = async (
+  cantidad = cantidadPeticionesPorCiclo,
+  url,
+  params
+) => {
+  let arrayPeticiones = [];
+  for (let index = 0; index < cantidad; index++) {
+    arrayPeticiones.push(`fetch(${url}, ${params})`);
+  }
+  const values = await Promise.allSettled(arrayPeticiones);
+  return values;
+};
+
 const openInNewTab = (url) => {
   window.open(url, "_blank").focus();
 };
 
-export { reloadPage, doFetch, GenerarUrlPago, openInNewTab };
+export {
+  reloadPage,
+  doFetch,
+  GenerarUrlPago,
+  openInNewTab,
+  multiplesPeticiones,
+};

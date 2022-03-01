@@ -3,16 +3,17 @@ const w = window;
 const URLactual = w.location.href;
 const PathNameUrl = w.location.pathname;
 const timerReload = 2000;
-const detenerCiclo = 50000;
+const detenerCiclo = 90000;
+const cantidadPeticionesPorCiclo = 3;
 const shopMSAuth =
-  "010235A87EE6F0F4D908FE35104348F9F4D908000B44006100790072006F006E004300680061006E00670000012F00FF";
-const asp = "5axplstguehr1texyhzaqiij";
+  "0102B64AB78A1AF6D908FEB6B27BEC22F6D908000B44006100790072006F006E004300680061006E00670000012F00FF";
+const asp = "jf0mb5kywbobgbapre1jybfs";
 
 let continuar = false;
 
 const setContinuar = (param) => {
   continuar = param;
-  console.log({ continuar });
+  // console.log({ continuar });
 };
 
 const cookie = `${document.cookie}"; ASP.NET_SessionId=${asp}; ShopMSAuth=${shopMSAuth}`;
@@ -36,19 +37,20 @@ const GetParamsMount = () => {
     Referer: URLactual,
     "Referrer-Policy": "strict-origin-when-cross-origin",
   };
+  let btn = PathNameUrl.toLocaleLowerCase().includes("caribe")
+    ? "PostCart"
+    : "btnCart";
 
-  const parte1 =
-    "ctl00%24ScriptManager1=ctl00%24ScriptManager1%7Cctl00%24cphPage%24productsControl%24rptListProducts%24ctl00%24listTemplate%24btnCart&__EVENTTARGET=ctl00%24cphPage%24productsControl%24rptListProducts%24ctl00%24listTemplate%24btnCart&__EVENTARGUMENT=&__LASTFOCUS=&cphPage_productsControl_rptListProducts_listTemplate_0_DetailTabs_0_ClientState=%7B%22ActiveTabIndex%22%3A-1%2C%22TabState%22%3A%5B%5D%7D&PageLoadedHiddenTxtBox=Set&__VIEWSTATE=";
+  const parte1 = `ctl00%24ScriptManager1=ctl00%24ScriptManager1%7Cctl00%24cphPage%24productsControl%24rptListProducts%24ctl00%24listTemplate%24${btn}&__EVENTTARGET=ctl00%24cphPage%24productsControl%24rptListProducts%24ctl00%24listTemplate%24${btn}&__EVENTARGUMENT=&__LASTFOCUS=&cphPage_productsControl_rptListProducts_listTemplate_0_DetailTabs_0_ClientState=%7B%22ActiveTabIndex%22%3A-1%2C%22TabState%22%3A%5B%5D%7D&PageLoadedHiddenTxtBox=Set&__VIEWSTATE=`;
 
-  const parte5 =
-    "&Language=es-MX&CurrentLanguage=es-MX&Currency=&ctl00%24cphPage%24productsControl%24TopTools%24cbxSortType=&ctl00%24cphPage%24productsControl%24TopTools%24cbxPageSize=-1&ctl00%24cphPage%24productsControl%24rptListProducts%24ctl00%24listTemplate%24txtCount=1&ctl00%24taxes%24listCountries=54&__ASYNCPOST=true&";
+  const parte5 = `&Language=es-MX&CurrentLanguage=es-MX&Currency=&ctl00%24cphPage%24productsControl%24TopTools%24cbxSortType=&ctl00%24cphPage%24productsControl%24TopTools%24cbxPageSize=-1&ctl00%24cphPage%24productsControl%24rptListProducts%24ctl00%24listTemplate%24txtCount=1&ctl00%24taxes%24listCountries=54&__ASYNCPOST=true&`;
 
   const parte3 = "&__VIEWSTATEGENERATOR=";
   let auxData1 = d.getElementById("__VIEWSTATE").value;
   let auxData2 = auxData1.replace(/\//g, "%2F");
   let auxData3 = auxData2.replace(/\+/g, "%2B");
 
-  const parte2 = auxData3.replace("=", "%3D");
+  const parte2 = auxData3.replace(/\=/g, "%3D");
   const parte4 = d.getElementById("__VIEWSTATEGENERATOR").value;
 
   const dataBody = `${parte1}${parte2}${parte3}${parte4}${parte5}`.replace(
@@ -61,7 +63,7 @@ const GetParamsMount = () => {
     body: dataBody,
     method: "POST",
   };
-  // console.log(params);
+  console.log(params);
 
   return params;
   // return `fetch(${URLactual},${params})`;
@@ -75,6 +77,7 @@ export {
   detenerCiclo,
   continuar,
   PathNameUrl,
+  cantidadPeticionesPorCiclo,
   setContinuar,
   GetParamsMount,
 };
